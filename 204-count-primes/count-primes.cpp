@@ -6,7 +6,7 @@ public:
         for(long long i = 2; i < n; i++){
             if(isPrime[i]){
                 ans.push_back(i);
-                for(long long j = 2 * i; j < n; j += i){
+                for(long long j = i * i; j < n; j += i){
                     isPrime[j] = false;
                 }
             }
