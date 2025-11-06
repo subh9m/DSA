@@ -15,7 +15,7 @@ public:
                 int end = n - 1;
 
                 while(start < end){
-                    long long sum = (long)(long)nums[i] + nums[j] + nums[start] + nums[end];
+                    long long sum = (long long)nums[i] + nums[j] + nums[start] + nums[end];
                     if(sum < target){
                         start++;
                     } else if(sum > target){
