@@ -1,17 +1,15 @@
 class Solution {
 private:
-    void bfs(int node, vector<vector<int>>&adjList, vector<int>&visited){
+    void bfs(int node, vector<int>&visited, vector<vector<int>>&adj){
         visited[node] = 1;
         queue<int> q;
         q.push(node);
-
         while(!q.empty()){
-            int i = q.front();
+            int vertex = q.front();
             q.pop();
-
-            for(auto it: adjList[i]){
+            for(auto it: adj[vertex]){
                 if(!visited[it]){
-                    bfs(it, adjList, visited);
+                    bfs(it, visited, adj);
                 }
             }
         }
@@ -19,25 +17,26 @@ private:
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
         int V = isConnected.size();
-        vector<vector<int>> adjList(V);
+        vector<vector<int>> adj(V);
+
         for(int i = 0; i < V; i++){
-            for(int j = 0; j < V; j++) {
-                if(isConnected[i][j] == 1){
-                    adjList[i].push_back(j);
-                    adjList[j].push_back(i);
+            for(int j = 0; j < V; j++){
+                if(isConnected[i][j]){
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
                 }
             }
         }
 
-        vector<int>visited(V, 0);
-        int count = 0;
+        vector<int> visited(V, 0);
 
-        for(int i = 0;  i < V; i++){
+        int provinces = 0;
+        for(int i = 0; i < V; i++){
             if(!visited[i]){
-                count++;
-                bfs(i, adjList, visited);
+                provinces++;
+                bfs(i, visited, adj);
             }
         }
-        return count;
+        return provinces;
     }
 };
