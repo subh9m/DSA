@@ -9,8 +9,8 @@ private:
             q.pop();
             for(auto it: adj[vertex]){
                 if(!visited[it]){
-                    bfs(it, visited, adj);
-                }
+                    visited[it] = 1;
+                    q.push(it);                }
             }
         }
     }
