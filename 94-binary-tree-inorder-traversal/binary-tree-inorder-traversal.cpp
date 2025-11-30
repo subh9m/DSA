@@ -10,17 +10,17 @@
  * };
  */
 class Solution {
-private:
-void solve(TreeNode* root, vector<int>& inorder){
-    if(root == nullptr) return;
-    solve(root -> left, inorder);
-    inorder.push_back(root-> val);
-    solve(root -> right, inorder);
-}
+    private: 
+    void solve(TreeNode* root, vector<int>&ans){
+        if(root == nullptr) return;
+        solve(root->left, ans);
+        ans.push_back(root->val);
+        solve(root -> right, ans);
+    }
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> inorder;
-        solve(root, inorder);
-        return inorder;      
+        vector<int> ans;
+        solve(root, ans);
+        return ans;
     }
 };
