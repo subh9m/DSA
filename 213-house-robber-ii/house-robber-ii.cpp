@@ -1,22 +1,24 @@
 class Solution {
+private:
+    int getMax(vector<int>&nums, int start, int end){
+        int prev = 0;
+        int prev2 = 0;
+
+        for(int i = start; i <= end; i++){
+            int rob = prev2 + nums[i];
+            int skip = prev;
+            int curr = max(rob, skip);
+
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
+    }
 public:
     int rob(vector<int>& nums) {
-        if (nums.size() == 1)
-            return nums[0];
-        return max(getMax(nums, 0, nums.size() - 2),
-                   getMax(nums, 1, nums.size() - 1));
-    }
+        int n = nums.size();
+        if(n == 1) return nums[0];
 
-private:
-    int getMax(vector<int>& nums, int start, int end) {
-        int prevRob = 0, maxRob = 0;
-
-        for (int i = start; i <= end; ++i) {
-            int temp = max(maxRob, prevRob + nums[i]);
-            prevRob = maxRob;
-            maxRob = temp;
-        }
-
-        return maxRob;
+        return max(getMax(nums, 0, n-2), getMax(nums, 1, n-1));
     }
 };
