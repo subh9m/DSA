@@ -17,7 +17,7 @@ public:
         long long ans = 0;
         while(l <= r){
             if(nums[r] + nums[l] <= target){
-                ans = ((ans % MOD) + computed[r-l]) % MOD;
+                ans = ((ans % MOD) + computed[r-l] % MOD) % MOD;
                 l++;
             } else r--;
         }
