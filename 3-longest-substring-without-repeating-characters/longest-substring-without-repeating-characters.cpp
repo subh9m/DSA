@@ -5,9 +5,9 @@ public:
         if(n == 0) return 0;
         if(n == 1) return 1;
 
-        vector<int>lastSeen(256, -1);
-        int left = 0;
+        vector<int>lastSeen(256,-1);
         int maxLen = 1;
+        int left = 0;
         for(int right = 0; right < n; right++){
             if(lastSeen[s[right]] >= left){
                 left = lastSeen[s[right]] + 1;
