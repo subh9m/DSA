@@ -1,15 +1,14 @@
-//space optimization
 class Solution {
 public:
-    int climbStairs(int n) {
-        int prev2 = 1;
-        int prev = 1;
+    int func(int n, vector<int>&dp){
+        if(n <= 1) return 1;
 
-        for(int i = 2; i <= n; i++){
-            int curr_val = prev + prev2;
-            prev2 = prev;
-            prev = curr_val;
-        } 
-        return prev;  
+        if(dp[n] != -1) return dp[n];
+
+        return dp[n] = func(n-1, dp) + func(n-2, dp);
+    }
+    int climbStairs(int n) {
+        vector<int>dp(n+1, -1);
+        return func(n, dp);
     }
 };
