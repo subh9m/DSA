@@ -1,25 +1,22 @@
 class Solution {
-private: 
-            void findSum(int index, int n, vector<int>&list, vector<int>&nums,
-                        vector<vector<int>>&ans){
-                    if(index == n){
-                        ans.push_back(list);
-                        return;
-                    }
-
-                    findSum(index + 1, n, list, nums, ans);
-                    list.push_back(nums[index]);
-                    findSum(index + 1, n, list, nums, ans);
-                    list.pop_back();
-        }
 public:
+    void func(int ind, vector<int>&temp, vector<vector<int>>&ans, vector<int>&nums){
+        if(ind < 0){
+            ans.push_back(temp);
+            return;
+        }
+        func(ind - 1, temp, ans, nums);
+        temp.push_back(nums[ind]);        
+        func(ind -1 , temp, ans, nums);
+        temp.pop_back();
+
+    }
     vector<vector<int>> subsets(vector<int>& nums) {
-        int n = nums.size();
         vector<vector<int>>ans;
-        vector<int> list;
-
-        findSum(0, n, list, nums, ans);
-
+        int n = nums.size();
+        if(n == 0) return ans;
+        vector<int>temp;
+        func(n-1, temp, ans, nums);
         return ans;
     }
 };
