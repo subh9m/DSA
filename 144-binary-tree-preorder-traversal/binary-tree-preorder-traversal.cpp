@@ -10,17 +10,17 @@
  * };
  */
 class Solution {
-private:
-    void solve(TreeNode* root, vector<int>&ans){
-        if(root == nullptr) return;
-        ans.push_back(root->val);
-        solve(root -> left, ans);
-        solve(root -> right, ans);
-    }
 public:
+    void func(TreeNode* root, vector<int>&ans){
+        if(root == nullptr)return;
+
+        ans.push_back(root->val);
+        func(root->left,ans);
+        func(root->right,ans);
+    }
     vector<int> preorderTraversal(TreeNode* root) {
-        vector<int> ans;
-        solve(root, ans);
+        vector<int>ans;
+        func(root, ans);
         return ans;
     }
 };
