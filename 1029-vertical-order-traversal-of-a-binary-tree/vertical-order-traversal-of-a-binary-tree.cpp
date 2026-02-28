@@ -12,34 +12,41 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        map<int, map<int, multiset<int>>>mpp;
-        queue<pair<TreeNode* , pair<int,int>>>q;
+        vector<vector<int>>ans;
+
+        if(root == nullptr) return ans;
+
+        queue<pair<TreeNode*, pair<int, int>>>q;
+        map<int, map<int, priority_queue<int, vector<int>, greater<int>>>>mpp;
         q.push({root, {0, 0}});
-
         while(!q.empty()){
-            auto p = q.front();
+            auto it = q.front();
             q.pop();
-            TreeNode* node = p.first;
-            int x = p.second.first;
-            int y = p.second.second;
 
-            mpp[x][y].insert(node->val);
-            if(node->left){
+            TreeNode* node = it.first;
+            int x = it.second.first;
+            int y = it.second.second;
+
+            mpp[x][y].push(node->val);
+
+            if(node->left != nullptr){
                 q.push({node->left, {x-1, y+1}});
             }
-            if(node->right){
+
+            if(node->right != nullptr){
                 q.push({node->right, {x+1, y+1}});
             }
         }
 
-        vector<vector<int>>ans;
-
-        for(auto p: mpp){
-            vector<int>level;
-            for(auto i: p.second){
-                level.insert(level.end(), i.second.begin(), i.second.end());
+        for(auto &q: mpp){
+            vector<int>column;
+            for(auto &p: q.second){
+                while(!p.second.empty()){
+                    column.push_back(p.second.top());
+                    p.second.pop();
+                }
             }
-            ans.push_back(level);
+            ans.push_back(column);
         }
 
         return ans;
