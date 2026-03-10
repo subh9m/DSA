@@ -4,15 +4,15 @@ public:
         vector<vector<int>>merged;
         sort(intervals.begin(), intervals.end());
 
-        for(auto interval: intervals){
-            if(merged.empty() || merged.back()[1] < interval[0]){
-                merged.push_back(interval);
+        for(auto it: intervals){
+            if(merged.empty() || merged.back()[1] < it[0]){
+                merged.push_back(it);
             }
-
             else{
-                merged.back()[1] = max(merged.back()[1] , interval[1]);
+                merged.back()[1] = max(merged.back()[1], it[1]);
             }
         }
+
         return merged;
     }
 };
