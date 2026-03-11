@@ -11,14 +11,24 @@
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
-        return validate(root, LONG_MIN, LONG_MAX);
+    void inorderTraversal(TreeNode* root, vector<int>&inorder){
+        if(root == nullptr)return;
+
+        inorderTraversal(root->left, inorder);
+        inorder.push_back(root->val);
+        inorderTraversal(root->right, inorder);
     }
-    bool validate(TreeNode* root, long min, long max) {
-        if(root == nullptr) return true;
-        if(root->val <= min || root-> val >= max) return false;
-        bool left = validate(root->left, min, root->val);
-        bool right = validate(root->right, root->val, max);
-        return left && right;
+    bool isValidBST(TreeNode* root) {
+        vector<int>inorder;
+        inorderTraversal(root, inorder);
+
+        bool ans = true;
+        for(int i = 1; i < inorder.size(); i++){
+            if(inorder[i] <= inorder[i-1]){ 
+            ans = false;
+            break;
+            }
+        }
+        return ans;
     }
 };
