@@ -10,17 +10,37 @@
  * };
  */
 class Solution {
-private:
-    void recursion(TreeNode* root, int level, vector<int>&ans){
-        if(root == nullptr) return;
-        if(ans.size() == level) ans.push_back(root->val);
-        recursion(root->right, level + 1, ans);
-        recursion(root->left, level + 1, ans);
-    }
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int>ans;
-        recursion(root, 0, ans);
+        if(root == nullptr)return ans;
+
+        vector<vector<int>>levelOrder;
+
+        queue<TreeNode*>q;
+        q.push(root);
+
+        while(!q.empty()){
+            int size = q.size();
+            vector<int>level;
+
+            for(int i = 0; i < size; i++){
+                TreeNode* node = q.front();
+                q.pop();
+
+                level.push_back(node->val);
+
+                if(node->left)q.push(node->left);
+                if(node->right)q.push(node->right);
+            }
+            levelOrder.push_back(level);
+        }
+
+        for(auto it: levelOrder){
+            ans.push_back(it.back());
+        }
+
         return ans;
+
     }
 };
