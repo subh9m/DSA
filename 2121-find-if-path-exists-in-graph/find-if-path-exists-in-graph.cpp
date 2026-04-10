@@ -1,39 +1,28 @@
 class Solution {
-private:
-vector<vector<int>> adjList;
-
-void addNode(int u, int v, bool isDirected = false){
-    adjList[u].push_back(v);
-    if(!isDirected){
-        adjList[v].push_back(u);
-    }
-}
 public:
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
-        if(source == destination) return true;
-        adjList.resize(n);
+        if(source == destination)return true;
+        vector<int>vis(n, -1);
 
-        for(int i = 0; i < edges.size(); i++){
-            addNode(edges[i][0], edges[i][1]);
+        vector<vector<int>>adj(n);
+        for(auto it: edges){
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
         }
-
-        vector<bool> visited(n, false);
-        queue<int> q;
+        queue<int>q;
         q.push(source);
-        visited[source] = true;
 
         while(!q.empty()){
-            int list = q.front();
+            auto it = q.front();
             q.pop();
+            vis[it] = 1;
 
-            for(int element : adjList[list]){
-                if(!visited[element]){
-                    if(element == destination) return true;
-                    visited[element] = true;
-                    q.push(element);
-                }
+            if(it == destination)return true;
 
-                
+            for(auto iter: adj[it]){
+                if(vis[iter] != -1)continue;
+
+                q.push(iter);
             }
         }
         return false;
