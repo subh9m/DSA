@@ -10,17 +10,17 @@
  * };
  */
 class Solution {
-private:
-    void solve(TreeNode* root, vector<int>&postorder){
-        if(root == nullptr) return;
-        solve(root -> left, postorder);
-        solve(root-> right, postorder);
+public:
+    void traversal(TreeNode* root, vector<int>&postorder){
+        if(root == nullptr)return;
+
+        traversal(root->left, postorder);
+        traversal(root->right, postorder);
         postorder.push_back(root->val);
     }
-public:
     vector<int> postorderTraversal(TreeNode* root) {
-        vector<int> postorder;
-        solve(root, postorder);
+        vector<int>postorder;
+        traversal(root, postorder);
         return postorder;
     }
 };
