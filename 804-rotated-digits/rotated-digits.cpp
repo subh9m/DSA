@@ -23,7 +23,6 @@ public:
             }
 
             if (flag) {
-                cout << i << endl;
 
                 result++;
             }
