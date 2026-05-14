@@ -1,19 +1,21 @@
 class Solution {
 public:
     bool isGood(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
-
         int n = nums.size();
-        bool ans = true;
-        for(int i = 1; i <= n; i++){
-            if(nums[i-1] != i && i < n){
-                ans = false;
-                break;
-            }else if(i == n && nums[i-1] != i-1){
-                ans = false;
-                break;
+
+        vector<int>freq(n, 0);
+
+        for(int i = 0; i < n; i++){
+            if(nums[i] < 1 || nums[i] > n-1){
+                return false;
             }
+            freq[nums[i]]++;
         }
-        return ans;
+
+        for(int i = 1; i < n-1; i++){
+            if(freq[i] != 1)return false;
+        }
+
+        return freq[n-1] == 2;
     }
 };
