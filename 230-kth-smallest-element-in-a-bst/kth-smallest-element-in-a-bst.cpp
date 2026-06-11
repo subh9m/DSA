@@ -20,6 +20,7 @@ public:
     }
     int kthSmallest(TreeNode* root, int k) {
         vector<int>inorder;
+       
         func(root, inorder);
 
         return inorder[k-1];
