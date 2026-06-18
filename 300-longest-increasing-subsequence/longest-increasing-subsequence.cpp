@@ -1,17 +1,26 @@
 class Solution {
 public:
+    int func(int ind, int prevInd, vector<int>&nums, vector<vector<int>>&dp) {
+        if(ind == nums.size()) return 0;
+
+        if(dp[ind][prevInd+1] != -1) return dp[ind][prevInd+1];
+
+        //not pick
+
+        int notTake = func(ind+1, prevInd, nums, dp);
+
+        //pick
+        int take = 0;
+        if(prevInd == -1 || nums[ind] > nums[prevInd]){
+            take = 1+ func(ind+1, ind, nums, dp);
+        }
+
+        return dp[ind][prevInd+1] = max(take, notTake);
+    }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        int maxLis = 1;
-        vector<int>t(n, 1);
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < i; j++){
-                if(nums[j] < nums[i]){
-                    t[i] = max(t[i], t[j]+1);
-                    maxLis = max(maxLis, t[i]);
-                }
-            }
-        }
-        return maxLis;
+        vector<vector<int>>dp(n+1, vector<int>(n+1, -1));
+        int prevInd = -1;
+        return func(0, prevInd, nums, dp);
     }
 };
