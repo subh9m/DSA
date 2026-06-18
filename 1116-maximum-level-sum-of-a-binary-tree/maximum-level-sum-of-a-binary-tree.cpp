@@ -12,29 +12,30 @@
 class Solution {
 public:
     int maxLevelSum(TreeNode* root) {
-        if(root == nullptr) return 0;
-        TreeNode* temp = root;
+        int maxSum = INT_MIN;
         queue<TreeNode*>q;
-        q.push(temp);
-
-        vector<int>levelSum;
-        while(!q.empty()){
-
+        q.push(root);
+        int level = 0;
+        int result;
+        while(!q.empty()) {
             int size = q.size();
-            int sum = 0;
+            int levelSum = 0;
+            level++;
 
-            for(int i = 0; i < size; i++){
-                TreeNode* node = q.front();
+            for(int i = 0; i < size; i++) {
+                auto it = q.front();
                 q.pop();
-                sum += node->val;
-                if(node->left != nullptr) q.push(node->left);
-                if(node->right != nullptr) q.push(node->right);
+                levelSum += it->val;
+
+                if(it->left) q.push(it->left);
+                if(it->right) q.push(it->right);
             }
-            levelSum.push_back(sum);
+            if(levelSum > maxSum) {
+                maxSum = max(maxSum, levelSum);
+                result = level;
+            }
         }
 
-        int idx = max_element(levelSum.begin(), levelSum.end()) - levelSum.begin();
-        return idx + 1;
-
+        return result;
     }
 };
