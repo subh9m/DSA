@@ -14,15 +14,13 @@ public:
             return root;
         }
 
-        TreeNode* leftSubTree = lowestCommonAncestor(root->left, p, q);
-        TreeNode* rightSubTree = lowestCommonAncestor(root->right, p, q);
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
 
-        if(leftSubTree == nullptr){
-            return rightSubTree;
-        } else if(rightSubTree == nullptr){
-            return leftSubTree;
-        }else{
-            return root;
-        }
+        if(left == nullptr){
+            return right;
+        } else if(right == nullptr) {
+            return left;
+        } else return root;
     }
 };
