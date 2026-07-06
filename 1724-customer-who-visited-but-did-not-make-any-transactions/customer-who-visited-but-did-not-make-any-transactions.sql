@@ -1,10 +1,8 @@
-/* Write your T-SQL query statement below */
-SELECT 
-    V.customer_id, 
-    COUNT(V.visit_id) AS count_no_trans
-    FROM Visits AS V
-    LEFT JOIN Transactions AS T
-    ON V.visit_id = T.visit_id
-    WHERE T.visit_id IS NULL
-    GROUP BY V.customer_id
-    ORDER BY count_no_trans DESC;
+# Write your MySQL query statement below
+select v.customer_id, count(v.visit_id) as count_no_trans
+from Visits as v
+left join Transactions as t
+on v.visit_id = t.visit_id
+where t.visit_id is null
+group by v.customer_id
+order by count_no_trans desc
