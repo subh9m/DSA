@@ -1,1 +1,1 @@
-<h2>ugly-number Notes</h2><hr>[ Time taken: 14hrs 5m 32s ]
+<h2>ugly-number Notes</h2><hr>[ Time taken: 10hrs 9m 9s ]
